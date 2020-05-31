@@ -1,0 +1,10 @@
+.WorkoutType{
+    width: 100%;
+    margin: 5px;
+    min-width: fit-content;
+    height: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    background: linear-gradient(#3a3a3b, #1d1d1f);
+    color: rgb(236, 235, 230);
+}
