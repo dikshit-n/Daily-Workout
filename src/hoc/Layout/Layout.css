@@ -1,0 +1,11 @@
+.Content {
+    margin-top: 72px;
+}
+.header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: black;
+    height: 72px;
+    width: 100%;
+}
