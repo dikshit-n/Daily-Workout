@@ -1,5 +1,6 @@
 .Modal {
     position: fixed;
+    color: cornsilk;
     z-index: 100;
     background: linear-gradient(#050508, #282829);
     width: 70%;

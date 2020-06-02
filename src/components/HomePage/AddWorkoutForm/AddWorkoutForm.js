@@ -1,17 +1,59 @@
-import React from 'react'
+import React, { memo, useState } from 'react'
+import { connect } from 'react-redux'
 
+import * as actions from '../../../store/actions/index'
 import classes from './AddWorkoutForm.css'
-import AddIcon from '@material-ui/icons/Add';
+import TextBox from '../../UI/Textbox/Textbox';
+import Spinner from '../../UI/Spinner/Spinner'
 
-const AddWorkoutForm = props => {
+const AddWorkoutForm = memo( props => {
+
+    const [value, setState] = useState('')
+    const {onAddWorkoutType} = props
+
+    const changeHandler = event => {
+        setState(event.target.value)
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
+        value !== '' && onAddWorkoutType(value, props.userId)
+    }
+
+    let form = <Spinner />
+    if(!props.loading){
+        form = <TextBox 
+                placeholder="Workout Type" 
+                type="text" 
+                value = {value} 
+                onChange={changeHandler} 
+                onSubmit={event => handleSubmit(event)} 
+                disabled={value === ''}
+                />
+    }
+
+    console.log(props.userId)
+
     return(
-        <form className={classes.AddWorkoutForm} onSubmit={props.onSubmit} >
-            <div className={classes.fakeTextBox} >
-                <AddIcon />
-                <input className={classes.textbox} type="text" value={props.value} name="workoutType" placeholder="Type" />
-            </div>
-        </form>
+        <div className={classes.AddWorkoutForm}  >
+            {form}
+        </div>
     )
+})
+
+const mapStatetoProps = state => {
+    return {
+        loading: state.addWorkoutTypeReducer.loading,
+        error: state.addWorkoutTypeReducer.error,
+        userId: state.authReducer.userId,
+        isAuth: state.authReducer.token
+    }
 }
 
-export default AddWorkoutForm
+const mapDispatchToProps = dispatch => {
+    return {
+      onAddWorkoutType: (value, userId) => dispatch(actions.addWorkoutType(value, userId))
+    }
+  }
+
+export default connect(mapStatetoProps, mapDispatchToProps)(AddWorkoutForm)
