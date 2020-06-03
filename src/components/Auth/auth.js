@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
+import Auxillary from '../../hoc/Auxillary/Auxillary'
 import * as actions from '../.././store/actions/index'
+import Spinner from '../UI/Spinner/Spinner'
 import TextBox from '../UI/Textbox/Textbox'
+import Button from '../UI/Button/Button'
+import classes from './auth.css'
 
 const Auth = props => {
 
@@ -26,14 +30,28 @@ const Auth = props => {
     const toggle = () => {
         setSignup(!signup)
     }
-    console.log(state)
+    if(props.isAuth){
+        props.history.push({
+            pathname: '/'
+        })
+    }
+
+    let form = <Spinner />
+    if(!props.loading){
+        form = (
+            <Auxillary>
+                {signup ? <h3>Signup</h3> : <h3>Signin</h3>}
+                <TextBox showIcon={false} type="email" required placeholder="Email" name="email" value={state.email} onChange={event => change(event)} />
+                <TextBox showIcon={false} type="password" required minLength={4} placeholder="password" name="password" onChange={event => change(event)} value={state.password} />
+                <Button type="submit" disabled={false} displayValue="SUBMIT" onClick={event => submit(event)} ></Button>
+                <h5 onClick={toggle}>Switch To {signup ? 'Signin' : 'Signup' } </h5>
+            </Auxillary>
+        )
+    }
 
     return (
-        <form onSubmit={event => submit(event)}>
-            <input type="email" required placeholder="Email" name="email" value={state.email} onChange={event => change(event)} />
-            <input type="password" required minLength={4} placeholder="password" name="password" onChange={event => change(event)} value={state.password} />
-            <button type="submit" >SUBMIT</button>
-            <h3 onClick={toggle}>Switch To {signup ? 'Signin' : 'Signup' } </h3>
+        <form className={classes.AuthForm} onSubmit={event => submit(event)}>
+            {form}
         </form>
     )
 }
@@ -41,7 +59,7 @@ const Auth = props => {
 const mapStateToProps = state => {
     return {
         loading: state.authReducer.loading,
-        error: state.authReducer.error
+        isAuth: state.authReducer.token !== null
     }
 }
 

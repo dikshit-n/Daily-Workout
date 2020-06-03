@@ -1,0 +1,17 @@
+.AuthForm{
+    position: relative;
+    z-index: 0;
+    background: linear-gradient(#48494a, #232324);
+    width: 70vw;
+    max-width: 500px;
+    border-radius: 10px;
+    height: fit-content;
+    min-height: 85px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
+}
+
+h5{
+    margin: 20px;
+}

@@ -7,10 +7,10 @@ export const updateCountStart = () => {
     }
 }
 
-export const updateCount = (id, count) => {
+export const updateCount = (id, count, todaysId) => {
     return dispatch => {
         const userId = localStorage.getItem('userId')
-        axios.put(`https://workout-app-a.firebaseio.com/${userId}/workouttypes/${id}/count.json`, count)
+        axios.put(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes/${id}/count.json`, count)
         .then(res => {
             console.log(res.data)
             dispatch(updateCountSuccess)
@@ -32,5 +32,38 @@ export const updateCountFailure = error => {
     return {
         type: actionTypes.UPDATE_COUNT_FAILURE,
         error: error
+    }
+}
+
+export const deleteWorkoutType = (userId, todaysId, workoutTypeId) => {
+    return dispatch => {
+        dispatch(deleteWorkoutTypeStart())
+        axios.delete(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes/${workoutTypeId}.json`)
+        .then(res => {
+            console.log(res.data)
+            dispatch(deleteWorkoutTypeSuccess())
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch(deleteWorkoutTypeFailure())
+        })
+    }
+}
+
+export const deleteWorkoutTypeStart = () => {
+    return {
+        type: actionTypes.DELETE_WORKOUT_TYPE_START
+    }
+}
+
+export const deleteWorkoutTypeSuccess = () => {
+    return {
+        type: actionTypes.DELETE_WORKOUT_TYPE_SUCCESS
+    }
+} 
+
+export const deleteWorkoutTypeFailure = () => {
+    return{
+        type: actionTypes.DELETE_WORKOUT_TYPE_FAILURE
     }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { withRouter } from 'react-router' 
 
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import WorkoutType from './WorkoutType/WorkoutType'
@@ -14,49 +15,62 @@ const WorkoutTypes = props => {
     const { onLoad, added } = props
 
     useEffect(() => {
-        console.log(props.WorkoutTypes)
         setState(props.WorkoutTypes)
     }, [props.WorkoutTypes])
 
     useEffect(() => {
         if(added){
-            onLoad()
+            const todaysId = getTodaysId()
+            onLoad(todaysId)
         }
     },[onLoad, added])
 
+    const getTodaysId = () => {
+        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      
+        const date = new Date()
+        let todaysId = days[date.getDay()] + "-" + date.getDate() + "-"  + months[date.getMonth()] + "-"  + date.getFullYear()
+        console.log( "getTodaysId  " + todaysId)
+
+        return todaysId.toString()
+    }
+
     const updateCount = (id, event) => {
-        console.log()
         var count = event.target.value
         var updatedState = [...state]
         updatedState.map(el => {
-            if(el.id == id){
+            if(el.id === id){
                 el.count = count
             }
+            return null
         })
         setState(updatedState)
     }
 
     const countSubmit = (id, event) => {
         event.preventDefault()
-        console.log(id)
         var value = 0 
         for(let key in state){
             if(state[key].id === id){
                 value = state[key].count
             }
         }
-        console.log(value)
-        props.onUpdateCount(id, value)
+        const todaysId = getTodaysId()
+        props.onUpdateCount(id, value, todaysId)
     }
 
-    console.log("Workout Types")
-    console.log(state)
+    const deleteWorkoutType = (id) => {
+        console.log("delete")
+        props.onDeleteWorkoutType(props.userId, getTodaysId(), id)
+    }
+
     let output = <Spinner />
     if(!props.loading){
         if(state.length === 0){
             output=<p>Start Your Workout</p>
         }else
-        output = state.map(workoutType => (<WorkoutType key={workoutType.id} id={workoutType.id} onChange={updateCount} onSubmit={countSubmit} count={workoutType.count} workoutType={workoutType.workoutType} />))
+        output = state.map(workoutType => (<WorkoutType key={workoutType.id} onDelete={deleteWorkoutType} id={workoutType.id} onChange={updateCount} onSubmit={countSubmit} count={workoutType.count} workoutType={workoutType.workoutType} />))
     }
     return (
         <div className={classes.WorkoutTypes} >
@@ -69,15 +83,18 @@ const mapStateToProps = state => {
     return{
         loading: state.showWorkoutTypesReducer.loading,
         WorkoutTypes: state.showWorkoutTypesReducer.workoutTypes,
-        added: state.addWorkoutTypeReducer.added
+        added: state.addWorkoutTypeReducer.added,
+        userId: state.authReducer.userId,
+        deleteSuccess: state.updateCountReducer.deleteSuccess
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLoad: () => dispatch(actions.showWorkoutTypes()),
-        onUpdateCount: (id, value) => dispatch(actions.updateCount(id, value))
+        onLoad: (todaysId) => dispatch(actions.showWorkoutTypes(todaysId)),
+        onUpdateCount: (id, value, todaysId) => dispatch(actions.updateCount(id, value, todaysId)),
+        onDeleteWorkoutType: (userId, todaysId, workoutTypeId) => dispatch(actions.deleteWorkoutType(userId, todaysId, workoutTypeId))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)( withErrorHandler(WorkoutTypes, axios))
+export default connect(mapStateToProps, mapDispatchToProps)( withErrorHandler(withRouter(WorkoutTypes), axios))

@@ -8,7 +8,8 @@ export {
 } from './showWorkoutTypes'
 
 export {
-    updateCount
+    updateCount,
+    deleteWorkoutType
 } from './updateWorkoutType'
 
 export {
@@ -16,3 +17,7 @@ export {
     logout,
     authCheck
 } from './auth'
+
+export {
+    fetchHistory
+} from './fetchHistory'

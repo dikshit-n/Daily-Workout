@@ -24,23 +24,18 @@ const Toolbar = props => {
     }
 
     let redirect = null
-    let modal = <Modal show={show} onClick={close} > <AddWorkoutForm /> </Modal>
 
     if(props.workoutTypes){
         redirect = <Redirect to="/" />
     }
-    if(props.added){
-        modal = null
-    }
-
-    console.log(props.isAuth)
 
     return (
         <div className={classes.Toolbar} >
             {redirect}
             <h3>Workout</h3>
             <Link to={props.isAuth ? "/logout" : "/auth"}><h4>{props.isAuth ? 'Logout' : 'Auth'}</h4></Link>
-            {modal}
+            {props.isAuth ? <Link to="/history"><h4>History</h4></Link> : null}
+            <Modal show={show && !props.added} onClick={close} > <AddWorkoutForm /> </Modal>
             <AddWorkoutTypeButton onClick={open} />
         </div>
     )

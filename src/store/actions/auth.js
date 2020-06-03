@@ -19,10 +19,9 @@ export const auth = (data, signup) => {
             localStorage.setItem('token', res.data.idToken)
             dispatch(authSuccess(res.data.localId, res.data.idToken))
         })
-        .catch(error => {
-            console.log(error.data)
-            dispatch(authFailure(error.data))
-        })
+        .catch(err => {
+            dispatch(authFailure(err.response.data.error));
+        });
     }
 }
 
@@ -42,7 +41,8 @@ export const authSuccess = (userId, token) => {
 
 export const authFailure = (error) => {
     return {
-        type: actionTypes.AUTH_FAILURE
+        type: actionTypes.AUTH_FAILURE,
+        error: error
     }
 }
 

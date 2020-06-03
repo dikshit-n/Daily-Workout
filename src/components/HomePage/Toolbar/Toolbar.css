@@ -1,5 +1,6 @@
 .Toolbar{
     position: fixed;
+    z-index: 800;
     left: 0;
     top: 0;
     background-color: black;
@@ -9,7 +10,8 @@
 }
 
 h4{
-    position: absolute;
+    display: inline;
     top: 5px;
     left: 5px;
 }
+

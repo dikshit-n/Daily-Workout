@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router'
+import { connect } from 'react-redux';
 
+import * as actions from './store/actions/index'
 import classes from './App.css';
 import Layout from './hoc/Layout/Layout';
 import HomePage from './components/HomePage/HomePage';
 import Auth from './components/Auth/auth'
 import Logout from './components/Auth/logout';
+import History from './components/History/history'
 
-import * as actions from './store/actions/index'
-import { connect } from 'react-redux';
 
 const App = props => {
 
@@ -23,8 +24,9 @@ const App = props => {
       <Layout>
         <Switch>
           <Route path="/auth" exact component={Auth} />
-          <Route path='/logout' component={Logout} />
-          <Route path="/" component={HomePage} />
+          {props.isAuth ? <Route path='/logout' component={Logout} /> : null}
+          {props.isAuth ? <Route path='/history' component={History} />: null}
+          <Route path="/" exact component={HomePage} />
           <Redirect to="/" />
         </Switch>
       </Layout>

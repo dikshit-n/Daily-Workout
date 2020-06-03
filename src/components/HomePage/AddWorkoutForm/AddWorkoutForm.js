@@ -5,11 +5,22 @@ import * as actions from '../../../store/actions/index'
 import classes from './AddWorkoutForm.css'
 import TextBox from '../../UI/Textbox/Textbox';
 import Spinner from '../../UI/Spinner/Spinner'
+import Button from '../../UI/Button/Button';
 
 const AddWorkoutForm = memo( props => {
 
     const [value, setState] = useState('')
-    const {onAddWorkoutType} = props
+    const { onAddWorkoutType, isAuth } = props
+
+    const getTodaysId = () => {
+        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      
+        const date = new Date()
+        let todaysId = days[date.getDay()] + "-" + date.getDate() + "-"  + months[date.getMonth()] + "-"  + date.getFullYear()
+
+        return todaysId
+    }
 
     const changeHandler = event => {
         setState(event.target.value)
@@ -17,22 +28,31 @@ const AddWorkoutForm = memo( props => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        value !== '' && onAddWorkoutType(value, props.userId)
+        if(value !== '' && isAuth){
+            const todaysId = getTodaysId()
+            onAddWorkoutType(value, props.userId, todaysId)
+        }
     }
+
+    const disabledInfo = value === '' || !isAuth
+    const displayValue = !isAuth ? "Signup" : "Add"
 
     let form = <Spinner />
     if(!props.loading){
-        form = <TextBox 
+        form = <form onSubmit={event => handleSubmit(event)} >
+            <TextBox 
+                showIcon={false}
+                name="workoutType"
                 placeholder="Workout Type" 
                 type="text" 
                 value = {value} 
-                onChange={changeHandler} 
-                onSubmit={event => handleSubmit(event)} 
-                disabled={value === ''}
-                />
+                onChange={changeHandler}
+            />
+            <Button tyep="submit" onClick={event => handleSubmit(event)} disabled={disabledInfo} displayValue = {displayValue} />
+        </form> 
     }
 
-    console.log(props.userId)
+    console.log(getTodaysId())
 
     return(
         <div className={classes.AddWorkoutForm}  >
@@ -46,13 +66,13 @@ const mapStatetoProps = state => {
         loading: state.addWorkoutTypeReducer.loading,
         error: state.addWorkoutTypeReducer.error,
         userId: state.authReducer.userId,
-        isAuth: state.authReducer.token
+        isAuth: state.authReducer.token !== null
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-      onAddWorkoutType: (value, userId) => dispatch(actions.addWorkoutType(value, userId))
+      onAddWorkoutType: (value, userId, todaysId) => dispatch(actions.addWorkoutType(value, userId, todaysId))
     }
   }
 

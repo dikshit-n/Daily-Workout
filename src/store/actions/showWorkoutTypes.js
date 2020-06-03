@@ -7,11 +7,11 @@ export const showWorkoutTypesStart = () => {
     }
 }
 
-export const showWorkoutTypes =() => {
+export const showWorkoutTypes = (todaysId) => {
     return dispatch => {
         const userId = localStorage.getItem('userId')
         dispatch(showWorkoutTypesStart())
-        axios.get(`https://workout-app-a.firebaseio.com/${userId}/workouttypes.json`)
+        axios.get(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes.json`)
         .then(res => {
             const showWorkoutTypes = []
             for( let key in res.data ){

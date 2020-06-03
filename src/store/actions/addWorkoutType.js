@@ -13,15 +13,15 @@ export const addWorkoutTypeStart = () => {
     }
 }
 
-export const addWorkoutType = (value, userId) => {
+export const addWorkoutType = (value, userId, todaysId) => {
     return dispatch => {
         var data = {
             workoutType: value,
             count:0
         }
         dispatch(addWorkoutTypeStart())
-        console.log(userId)
-        axios.post(`https://workout-app-a.firebaseio.com/${userId}/workouttypes.json`,data)
+        console.log(todaysId)
+        axios.post(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes.json`,data)
         .then(res => {
             dispatch(addWorkoutTypeSuccess())
         })

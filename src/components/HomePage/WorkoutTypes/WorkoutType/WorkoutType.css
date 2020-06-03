@@ -1,4 +1,5 @@
 .WorkoutType{
+    position: relative;
     width: 100%;
     margin: 5px;
     min-width: fit-content;
@@ -7,4 +8,40 @@
     border-radius: 5px;
     background: linear-gradient(#3a3a3b, #1d1d1f);
     color: rgb(236, 235, 230);
+    text-transform: capitalize;
+}
+
+.form{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.count{
+    width: 50px;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+    background: linear-gradient(#7a7a78, #3d3d3d);
+    border: none;
+    outline: none;
+}
+
+.Submit{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+}
+
+.delete{
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    background-color: red;
+    width: 10px;
+    height: 10px;
 }

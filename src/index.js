@@ -12,6 +12,7 @@ import addWorkoutTypeReducer from './store/reducers/addWorkoutType'
 import showWorkoutTypesReducer from './store/reducers/showWorkoutTypesReducer'
 import updateCountReducer from './store/reducers/updateCountReducer'
 import authReducer from './store/reducers/authReducer'
+import fetchHistoryReducer from './store/reducers/fetchHistoryReducer'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     addWorkoutTypeReducer: addWorkoutTypeReducer,
     showWorkoutTypesReducer: showWorkoutTypesReducer,
     updateCountReducer: updateCountReducer,
-    authReducer: authReducer
+    authReducer: authReducer,
+    fetchHistoryReducer: fetchHistoryReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
