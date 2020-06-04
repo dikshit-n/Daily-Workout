@@ -1,12 +1,17 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    loading: false,
+    loading: true,
     workoutTypes: []
 }
 
 const showWorkoutTypesReducer = (state = initialState, action) => {
     switch(action.type){
+        case(actionTypes.SHOW_WORKOUT_TYPES_START):
+            return {
+                ...state,
+                loading: true
+            }
         case(actionTypes.SHOW_WORKOUT_TYPES_SUCCESS):
             return {
                 ...state,
@@ -17,11 +22,6 @@ const showWorkoutTypesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false
-            }
-        case(actionTypes.SHOW_WORKOUT_TYPES_START):
-            return {
-                ...state,
-                loading: true
             }
         default:
             return state

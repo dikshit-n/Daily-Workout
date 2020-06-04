@@ -15,7 +15,7 @@ const History = props => {
     console.log(props.data)
 
     let output = <Spinner />
-    if(props.history.length !== 0){
+    if(props.data.length !== 0){
         output = (
             props.data.map(eachHistory => <EachHistory
                 id={eachHistory.id}

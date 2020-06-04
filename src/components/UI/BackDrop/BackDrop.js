@@ -9,7 +9,7 @@ const animationTime = {
 }
 
 const BackDrop = (props) => (
-    <Transition in={props.show} timeout={animationTime} mountOnEnter unmountOnExit >
+    <Transition in = {props.show} timeout={animationTime} mountOnEnter unmountOnExit >
         {
             state => {
                 const attacehdClasses = [classes.Backdrop, state === 'entering' ? classes.BackdropOpen : state === "exiting" ? classes.BackdropClose : null]

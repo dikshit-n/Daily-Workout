@@ -15,3 +15,9 @@ h4{
     left: 5px;
 }
 
+.nav{
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}

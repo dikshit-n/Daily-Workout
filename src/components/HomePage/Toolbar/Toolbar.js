@@ -6,7 +6,7 @@ import axios from 'axios'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index'
 import classes from './Toolbar.css'
-import AddWorkoutTypeButton from './AddWorkoutTypeButton/AddWorkoutTypeButton'
+import AddWorkoutTypeButton from '../../UI/AddWorkoutTypeButton/AddWorkoutTypeButton'
 import AddWorkoutForm from '../AddWorkoutForm/AddWorkoutForm'
 import Modal from '../../UI/Modal/Modal'
 
@@ -33,8 +33,11 @@ const Toolbar = props => {
         <div className={classes.Toolbar} >
             {redirect}
             <h3>Workout</h3>
-            <Link to={props.isAuth ? "/logout" : "/auth"}><h4>{props.isAuth ? 'Logout' : 'Auth'}</h4></Link>
-            {props.isAuth ? <Link to="/history"><h4>History</h4></Link> : null}
+            <nav>
+                <Link to="/"><h4>Home</h4></Link>
+                <Link to={props.isAuth ? "/logout" : "/auth"}><h4>{props.isAuth ? 'Logout' : 'Auth'}</h4></Link>
+                {props.isAuth ? <Link to="/history"><h4>History</h4></Link> : null}
+            </nav>
             <Modal show={show && !props.added} onClick={close} > <AddWorkoutForm /> </Modal>
             <AddWorkoutTypeButton onClick={open} />
         </div>

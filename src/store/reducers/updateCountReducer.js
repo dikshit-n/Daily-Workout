@@ -1,10 +1,14 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
+    // Update Count
     loading: false,
     error: false,
     submitSuccess: false,
-    deleteSucccess: false,
+
+    // Delete WorkoutType
+    deleteLoading: false,
+    deleteSuccess: false,
     deleteError: false
 }
 
@@ -12,50 +16,37 @@ const updateCountReducer = (state = initialState, action) => {
     switch(action.type){
         case(actionTypes.UPDATE_COUNT_START):
             return {
-                deleteSucccess: false,
-                submitSuccess: false,
-                loading: true,
-                error: false,
-                deleteError: false
+                ...state,
+                loading: true
             }
         case(actionTypes.UPDATE_COUNT_SUCCESS):
             return {
-                deleteSucccess: false,
+                ...state,
                 loading: false,
-                error: false,
-                submitSuccess: true,
-                deleteError: false
+                submitSuccess: true
             }
         case(actionTypes.UPDATE_COUNT_FAILURE):
             return {
-                deleteSucccess: false,
-                submitSuccess: false,
+                ...state,
                 loading: false,
-                error: true,
-                deleteError: false
+                error: true
             }
         case(actionTypes.DELETE_WORKOUT_TYPE_START):
             return{
-                deleteSucccess: false,
-                loading: true,
-                error: false,
-                submitSuccess: false,
-                deleteError: false
+                ...state,
+                deleteSuccess: false,
+                deleteLoading: true
             }
         case(actionTypes.DELETE_WORKOUT_TYPE_SUCCESS):
             return{
-                deleteSucccess: true,
-                loading: false,
-                error: false,
-                submitSuccess: false,
-                deleteError: false
+                ...state,
+                deleteSuccess: true,
+                deleteLoading: false
             }
         case(actionTypes.DELETE_WORKOUT_TYPE_FAILURE):
             return{
-                deleteSucccess: false,
-                loading: true,
-                error: false,
-                submitSuccess: false,
+                ...state,
+                deleteLoading: false,
                 deleteError: true
             }
         default:

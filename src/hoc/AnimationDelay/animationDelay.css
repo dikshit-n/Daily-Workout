@@ -1,0 +1,39 @@
+.FadeIn{
+    margin: auto;
+    animation: fadeIn 1.5s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.FadeOut{
+    margin: auto;
+    animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0
+  }
+  100%{
+      opacity: 1
+  }
+}
+
+@keyframes fadeOut {
+  0%{
+      opacity: 1;
+  }
+  50%{
+    left: 0;
+  }
+  90%{
+      right: 5px;
+      /* opacity: 0.75; */
+  }
+  100%{
+      left: -1000px;
+      /* opacity: 0; */
+  }
+}

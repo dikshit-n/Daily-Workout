@@ -6,21 +6,12 @@ import classes from './AddWorkoutForm.css'
 import TextBox from '../../UI/Textbox/Textbox';
 import Spinner from '../../UI/Spinner/Spinner'
 import Button from '../../UI/Button/Button';
+import getTodaysId from '../../../hoc/getTodaysId/getTodaysId';
 
 const AddWorkoutForm = memo( props => {
 
     const [value, setState] = useState('')
     const { onAddWorkoutType, isAuth } = props
-
-    const getTodaysId = () => {
-        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      
-        const date = new Date()
-        let todaysId = days[date.getDay()] + "-" + date.getDate() + "-"  + months[date.getMonth()] + "-"  + date.getFullYear()
-
-        return todaysId
-    }
 
     const changeHandler = event => {
         setState(event.target.value)
@@ -29,8 +20,7 @@ const AddWorkoutForm = memo( props => {
     const handleSubmit = event => {
         event.preventDefault()
         if(value !== '' && isAuth){
-            const todaysId = getTodaysId()
-            onAddWorkoutType(value, props.userId, todaysId)
+            onAddWorkoutType(value, props.userId, getTodaysId())
         }
     }
 
@@ -51,8 +41,6 @@ const AddWorkoutForm = memo( props => {
             <Button tyep="submit" onClick={event => handleSubmit(event)} disabled={disabledInfo} displayValue = {displayValue} />
         </form> 
     }
-
-    console.log(getTodaysId())
 
     return(
         <div className={classes.AddWorkoutForm}  >

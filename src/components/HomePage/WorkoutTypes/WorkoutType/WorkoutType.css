@@ -9,6 +9,7 @@
     background: linear-gradient(#3a3a3b, #1d1d1f);
     color: rgb(236, 235, 230);
     text-transform: capitalize;
+    list-style: none;
 }
 
 .form{
@@ -37,11 +38,23 @@
     border: none;
 }
 
-.delete{
+.name{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    min-width: 140px;
+}
+
+.container{
     display: inline-block;
     position: absolute;
     right: 3px;
-    background-color: red;
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.container:hover, 
+.container:active{
+    background-color: rgb(71, 70, 70);
 }

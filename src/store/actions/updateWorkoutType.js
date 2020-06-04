@@ -10,10 +10,11 @@ export const updateCountStart = () => {
 export const updateCount = (id, count, todaysId) => {
     return dispatch => {
         const userId = localStorage.getItem('userId')
+        dispatch(updateCountStart())
         axios.put(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes/${id}/count.json`, count)
         .then(res => {
             console.log(res.data)
-            dispatch(updateCountSuccess)
+            dispatch(updateCountSuccess())
         })
         .catch(error => {
             console.log(error)
