@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
 import Auxillary from '../../hoc/Auxillary/Auxillary'
 import * as actions from '../.././store/actions/index'
 import Spinner from '../UI/Spinner/Spinner'
 import TextBox from '../UI/Textbox/Textbox'
-// import Button from '../UI/Button/Button'
 import classes from './auth.css'
 import { Button } from '@material-ui/core'
 
@@ -31,27 +31,28 @@ const Auth = props => {
     const toggle = () => {
         setSignup(!signup)
     }
-    if(props.isAuth){
-        props.history.push({
-            pathname: '/'
-        })
-    }
 
-    let form = <Spinner />
-    if(!props.loading){
-        form = (
-            <Auxillary>
-                {signup ? <h3>Signup</h3> : <h3>Signin</h3>}
-                <TextBox showIcon={false} type="email" required placeholder="Email" name="email" value={state.email} onChange={event => change(event)} />
-                <TextBox showIcon={false} type="password" required minLength={4} placeholder="password" name="password"  onChange={event => change(event)} value={state.password} />
-                <Button type="submit" variant="contained" size="small" >Submit</Button>
-                <h5 onClick={toggle}>Switch To {signup ? 'Signin' : 'Signup' } </h5>
-            </Auxillary>
-        )
+    let form = (
+        <Auxillary>
+            {signup ? <h3>Signup</h3> : <h3>Signin</h3>}
+            <TextBox showIcon={false} type="email" required placeholder="Email" name="email" value={state.email} onChange={event => change(event)} />
+            <TextBox showIcon={false} type="password" required minLength={4} placeholder="password" name="password"  onChange={event => change(event)} value={state.password} />
+            <Button type="submit" variant="contained" size="small" >Submit</Button>
+            <h5 onClick={toggle}>Switch To {signup ? 'Signin' : 'Signup' } </h5>
+        </Auxillary>
+    )
+    if(props.loading){
+        form = <Spinner />
+    }
+    
+    let redirect = null
+    if(props.isAuth && !props.loading){
+        redirect = <Redirect to="/" />
     }
 
     return (
         <form className={classes.AuthForm} onSubmit={event => submit(event)}>
+            {redirect}
             {form}
         </form>
     )

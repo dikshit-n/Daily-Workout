@@ -1,4 +1,8 @@
 .AuthForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     position: relative;
     z-index: 0;
     background: linear-gradient(#48494a, #232324);
@@ -9,9 +13,21 @@
     min-height: 85px;
     padding: 20px;
     box-sizing: border-box;
-    margin: 20px auto;
+    margin: 30px auto;
+    animation: show 2s ease;
+    user-select: none;
 }
 
 h5{
     margin: 10px;
+    cursor: pointer;
+}
+
+@keyframes show {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }

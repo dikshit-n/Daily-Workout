@@ -16,11 +16,11 @@ var newState = []
 var updatedLoadingInfo = []
 var updatedDeleteLoadingInfo = []
 
-const WorkoutTypes = props => {
+const WorkoutTypes = React.memo(props => {
 
     const [state, setState] = useState([])
-    const { onLoad, added } = props
-
+    const { onLoad, added, isAuth } = props
+    
     useEffect(() => {
         newState = props.WorkoutTypes
 
@@ -44,64 +44,105 @@ const WorkoutTypes = props => {
 
     }, [props.WorkoutTypes])
 
+
     useEffect(() => {
-        if(added){
+
+        if((added && isAuth) || (added && !isAuth) ){
+            console.log(added,isAuth)
             onLoad(getTodaysId())
+
         }
-    },[onLoad, added])
-    console.log(props)
+
+    },[onLoad, added, isAuth])
+
 
     const updateCount = (id, event) => {
+
         var count = event.target.value
+
         var updatedState = [...state]
+
         updatedState.map(el => {
+
             if(el.id === id){
+
                 el.count = count
+
             }
+
             return null
+
         })
+
         setState(updatedState)
+
     }
 
     const countSubmit = (id, event) => {
+
         event.preventDefault()
+        
         var value = 0 
+
         for(let key in state){
+
             if(state[key].id === id){
+
                 value = state[key].count
+
             }
+
         }
+
         counterId = id
+
         props.onUpdateCount(id, value, getTodaysId())
+
     }
+
 
     const deleteWorkoutType = (id) => {
+
         deleteWorkoutTypeId = id
-        props.onDeleteWorkoutType(props.userId, getTodaysId(), id)
+
+        props.onDeleteWorkoutType(getTodaysId(), id)
+
     }
 
+
     // Loading States
+
     if(counterId !== null){
 
         for( let key in updatedLoadingInfo ){
+
             if(key === counterId && props.counterLoading){
+
                 updatedLoadingInfo[key].loading = true
+
             }
+
             else{
+
                 updatedLoadingInfo[key].loading = false
+
             }
         }
-
     }
 
     if(deleteWorkoutTypeId !== null){
 
         for( let key in updatedDeleteLoadingInfo ){
+
             if(key === deleteWorkoutTypeId && props.deleteLoading){
+
                 updatedDeleteLoadingInfo[key].deleteLoading = true
+
             }
             else{
+
                 updatedDeleteLoadingInfo[key].deleteLoading = false
+
             }
         }
 
@@ -109,19 +150,27 @@ const WorkoutTypes = props => {
 
     // Delete Success
     if(props.deleteSuccess){
-        console.log("delete success")
+
         newState = newState.map(el => {
+
             if(el.id === deleteWorkoutTypeId)
+            
                 el.show = false
+
             return el
+
         })
     }
 
     // Total Output
     let output = <Spinner />
-    if(!props.loading){
+
+    if(!props.loading ){
+
         if(state.length === 0)
+
         output=<p>Start Your Workout</p>
+
         else
         output = newState.map(workoutType => {
 
@@ -147,13 +196,19 @@ const WorkoutTypes = props => {
                 
             />)}
         )
+
     }
+
+
     return (
+
         <div className={classes.WorkoutTypes} >
+
             {output}
+
         </div>
     )
-}
+})
 
 const mapStateToProps = state => {
     return{
@@ -163,8 +218,6 @@ const mapStateToProps = state => {
         WorkoutTypes: state.showWorkoutTypesReducer.workoutTypes,
 
         added: state.addWorkoutTypeReducer.added,
-
-        userId: state.authReducer.userId,
 
         deleteSuccess: state.updateCountReducer.deleteSuccess,
 
@@ -176,17 +229,23 @@ const mapStateToProps = state => {
 
         deleteLoading: state.updateCountReducer.deleteLoading,
 
-        deleteSuccess: state.updateCountReducer.deleteSuccess
+        isAuth: state.authReducer.token !== null
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
+
     return {
+
         onLoad: (todaysId) => dispatch(actions.showWorkoutTypes(todaysId)),
+
         onUpdateCount: (id, value, todaysId) => dispatch(actions.updateCount(id, value, todaysId)),
-        onDeleteWorkoutType: (userId, todaysId, workoutTypeId) => dispatch(actions.deleteWorkoutType(userId, todaysId, workoutTypeId))
+
+        onDeleteWorkoutType: (todaysId, workoutTypeId) => dispatch(actions.deleteWorkoutType(todaysId, workoutTypeId))
+
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)( withErrorHandler(withRouter(WorkoutTypes), axios))

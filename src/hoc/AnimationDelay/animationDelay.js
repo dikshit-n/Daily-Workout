@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import classes from './animationDelay.css'
-import Auxillary from '../Auxillary/Auxillary'
 
 const Fade = ({ show, children }) => {
   const [shouldRender, setRender] = useState(show);
@@ -16,9 +15,8 @@ const Fade = ({ show, children }) => {
 
   return (
     shouldRender && (
-      <div
-        // style={{ animation: `${show ? "fadeIn" : "fadeOut"} 1s` }}
-        className = {show ? classes.FadeIn : classes.FadeOut}
+      <div className={classes.center}
+        style={{ animation: `${show ? classes.fadeIn : classes.fadeOut} ${show ? '2.5s' : '0.25s' }` }}
         onAnimationEnd={onAnimationEnd}
       >
         {children}

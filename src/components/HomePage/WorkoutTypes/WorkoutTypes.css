@@ -10,4 +10,19 @@
     padding: 30px;
     box-sizing: border-box;
     border-radius: 10px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+p{
+    animation: p 3s ease;
+}
+
+@keyframes p {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }

@@ -10,8 +10,8 @@
 
 .myButton {
 	box-shadow: 0px 1px 0px 0px #1c1b18;
-	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
-	background-color:#eae0c2;
+	background:linear-gradient(to bottom, #c2eac8 5%, #a6ccaa 100%);
+	background-color:#97dab1;
 	border-radius:15px;
 	border: 2px solid #333029;
 	display:block;
@@ -29,7 +29,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+	background:linear-gradient(to bottom, #a6cca9 5%, #c2eacb 100%);
 	background-color:#ccc2a6;
 }
 .myButton:active {
@@ -40,6 +40,9 @@
 
 .myButton:disabled{
 	cursor: no-drop;
+	border: none;
+	text-shadow: none;
+	color: darkgrey;
 	background: linear-gradient(#5d5c5b, #585755);
 	color: rgb(64, 64, 64);
 }

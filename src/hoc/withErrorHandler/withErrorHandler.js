@@ -6,12 +6,12 @@ import Aux from '../Auxillary/Auxillary';
 const withErrorHandler = ( WrappedComponent, axios ) => {
     return class extends Component {
         state = {
-            error: null
+            error: false
         }
 
         UNSAFE_componentWillMount () {
             this.reqInterceptor = axios.interceptors.request.use( req => {
-                this.setState( { error: null } );
+                this.setState( { error: false } );
                 return req;
             } );
             this.resInterceptor = axios.interceptors.response.use( res => res, error => {
@@ -25,7 +25,7 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
         }
 
         errorConfirmedHandler = () => {
-            this.setState( { error: null } );
+            this.setState( { error: false } );
         }
 
         render () {
@@ -34,7 +34,7 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
                     <Modal
                         show={this.state.error}
                         onClick={this.errorConfirmedHandler}>
-                        {this.state.error ? this.state.error.message : null}
+                        {this.state.error ? this.state.error.message.toString() : null}
                     </Modal>
                     <WrappedComponent {...this.props} />
                 </Aux>

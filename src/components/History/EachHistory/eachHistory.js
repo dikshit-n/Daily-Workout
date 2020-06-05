@@ -8,37 +8,40 @@ const EachHistory = props => {
     const [details, setState] = useState([])
     const [showDetails, setShowDetails] = useState(false)
 
+    let animation = [ showDetails ?  classes.showDetails : classes.shrink]
+
     const showDetailsHandler = (id) => {
         setShowDetails(!showDetails)
         let temporary = props.data
-        let newDetails = []
-        newDetails = temporary.map(eachData => {
-            if(id === eachData.id){
-                return [...eachData.workoutTypes]
-            }
-            return null
-        })
-        setState([...newDetails])
+        let newDetails
+        newDetails = temporary.filter(eachData => eachData.id === id)
+        setState(newDetails[0].workoutTypes)
     }
     let output = null
-    if(details.length !== 0 && showDetails ){
-        output = details[0].map(workoutType => <WorkoutType key={workoutType.id} id={workoutType.id} name={workoutType.name} count={workoutType.count} />)
+    if(details.length !== 0){
+        output = details.map(workoutType => <WorkoutType key={workoutType.id} id={workoutType.id} name={workoutType.name} count={workoutType.count} />)
     }
+    console.log(details)
+
     return(
-        <div className = {classes.eachHistory} onClick={() => showDetailsHandler(props.id)} >
-            <div>
-                {props.day}
-            </div>
-            <div>
-                {props.date} {props.month} {props.year}
-            </div>
-            <Fade show={showDetails}>
+        <div className={classes.eachHistory} style={{animation: `${classes.show} 1s`}} >
+            <div className={animation.join(' ')} onClick={() => showDetailsHandler(props.id)} >
                 <div>
-                    {output}
+                    {props.day}
                 </div>
-            </Fade>
+                <div>
+                    {props.date} {props.month} {props.year}
+                </div>
+                <Fade show={showDetails}>
+                    <div>
+                        {output}
+                    </div>
+                </Fade>
+            </div>
         </div>
     )
 }
 
 export default EachHistory
+
+// style = {{ animation: `${showDetails ? classes.showDetails : classes.shrink} 2s` }} 

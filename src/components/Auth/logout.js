@@ -9,8 +9,13 @@ const Logout = props => {
     const { onLogout } = props
 
     useEffect(() => {
+        console.log("called logout")
         onLogout()
     }, [onLogout])
+
+    useEffect(() => {
+        return () => console.log("Logout Unmounted")
+    }, [])
 
     return <Redirect to='/' />
 }

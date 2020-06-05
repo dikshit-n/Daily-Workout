@@ -36,8 +36,9 @@ export const updateCountFailure = error => {
     }
 }
 
-export const deleteWorkoutType = (userId, todaysId, workoutTypeId) => {
+export const deleteWorkoutType = ( todaysId, workoutTypeId) => {
     return dispatch => {
+        const userId = localStorage.getItem('userId')
         dispatch(deleteWorkoutTypeStart())
         axios.delete(`https://workout-app-a.firebaseio.com/${userId}/${todaysId}/workouttypes/${workoutTypeId}.json`)
         .then(res => {

@@ -4,6 +4,8 @@
     background-color: inherit;
     border: none;
     color: azure;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .fakeTextBox{
@@ -15,5 +17,7 @@
     box-shadow: inset 0 -10px rgba(66, 65, 65, 0.87);
     margin: 5px;
     box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 

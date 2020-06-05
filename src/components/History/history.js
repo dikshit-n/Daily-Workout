@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions/index'
@@ -8,10 +8,11 @@ import classes from './history.css'
 
 const History = props => {
 
+    const { onFetchHistory } = props
+
     useEffect(() => {
-        console.log(props.userId)
-        props.onFetchHistory(props.userId)
-    }, [])
+        onFetchHistory()
+    }, [onFetchHistory])
     console.log(props.data)
 
     let output = <Spinner />
@@ -28,6 +29,9 @@ const History = props => {
             />)
         )
     }
+    else if(props.data.length === 0 && !props.loading){
+        output = <h3>No History</h3>
+    }
 
     return (
         <div className={classes.HistoryContainer} >
@@ -39,13 +43,13 @@ const History = props => {
 const mapStateToProps = state => {
     return {
         data: state.fetchHistoryReducer.history,
-        userId: state.authReducer.userId
+        loading: state.fetchHistoryReducer.loading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchHistory: (userId) => dispatch(actions.fetchHistory(userId))
+        onFetchHistory: () => dispatch(actions.fetchHistory())
     }
 }
 

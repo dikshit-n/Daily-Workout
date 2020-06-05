@@ -1,0 +1,10 @@
+.WorkoutType{
+    width: fit-content;
+    padding: 10px;
+    min-width: 170px;
+    background: linear-gradient(#3a3a3b, #1d1d1f);
+    margin: 10px auto;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}

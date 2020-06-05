@@ -11,10 +11,11 @@ const animationTime = {
 }
 
 const Modal = props => {
+    let show = props.show ? true : false
     return (
         <Aux>
-            <BackDrop show={props.show} onClick={props.onClick} />
-            <CSSTransition in={props.show} timeout={animationTime} mountOnEnter unmountOnExit
+            <BackDrop show={show} onClick={props.onClick} />
+            <CSSTransition in={show} timeout={animationTime} mountOnEnter unmountOnExit
                 classNames={{
                     enter:'',
                     enterActive: classes.ModalOpen,

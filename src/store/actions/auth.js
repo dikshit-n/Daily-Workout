@@ -3,24 +3,26 @@ import axios from 'axios'
 
 export const auth = (data, signup) => {
     return dispatch => {
+        dispatch(authStart())
         const userData = {
             ...data,
             returnSecureToken: true
         }
-        console.log(userData)
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBOCcWvU4i8sFtAryXQ_yB5w-GFsqWdcVY`
         if(!signup){
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBOCcWvU4i8sFtAryXQ_yB5w-GFsqWdcVY`
         }
-        dispatch(authStart())
         axios.post(url, userData)
-        .then(res => {
-            localStorage.setItem('userId',res.data.localId)
-            localStorage.setItem('token', res.data.idToken)
-            dispatch(authSuccess(res.data.localId, res.data.idToken))
+        .then(response => {
+            localStorage.setItem('userId',response.data.localId)
+            localStorage.setItem('token', response.data.idToken)
+            dispatch(authSuccess(response.data.localId, response.data.idToken))
+            return response.data
         })
         .catch(err => {
-            dispatch(authFailure(err.response.data.error));
+            console.log(err.response.data.error)
+            dispatch(authFailure(err));
+            // console.log(err['message'])
         });
     }
 }

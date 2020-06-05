@@ -1,5 +1,5 @@
 import React, { useState } from 'react' 
-import { Redirect, withRouter, Link } from 'react-router-dom'
+import { Redirect, withRouter, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -9,6 +9,8 @@ import classes from './Toolbar.css'
 import AddWorkoutTypeButton from '../../UI/AddWorkoutTypeButton/AddWorkoutTypeButton'
 import AddWorkoutForm from '../AddWorkoutForm/AddWorkoutForm'
 import Modal from '../../UI/Modal/Modal'
+import NavigationBar from '../../UI/NavigationBar/NavigationBar'
+import NavigationItem from '../../UI/NavigationBar/NavigationItem/NavigationItem'
 
 const Toolbar = props => {
 
@@ -23,23 +25,37 @@ const Toolbar = props => {
         setState(false)
     }
 
+
     let redirect = null
 
     if(props.workoutTypes){
+
         redirect = <Redirect to="/" />
+
     }
+
 
     return (
         <div className={classes.Toolbar} >
+
             {redirect}
+
             <h3>Workout</h3>
-            <nav>
-                <Link to="/"><h4>Home</h4></Link>
-                <Link to={props.isAuth ? "/logout" : "/auth"}><h4>{props.isAuth ? 'Logout' : 'Auth'}</h4></Link>
-                {props.isAuth ? <Link to="/history"><h4>History</h4></Link> : null}
-            </nav>
+            
+            <NavigationBar links = {[
+                
+                <NavigationItem to='/' exact > Home </NavigationItem>,
+                props.isAuth ? <NavigationItem exact to="/history" > History </NavigationItem> : <NavigationItem to="/auth" > Authenticate </NavigationItem>,
+                props.isAuth ? <NavigationItem exact to='/logout' > Logout </NavigationItem> : <NavigationItem to={null} />
+
+            ]} >
+                
+            </NavigationBar>
+
             <Modal show={show && !props.added} onClick={close} > <AddWorkoutForm /> </Modal>
+
             <AddWorkoutTypeButton onClick={open} />
+
         </div>
     )
 }

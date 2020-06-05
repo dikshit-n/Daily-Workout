@@ -13,4 +13,6 @@
     min-height: 85px;
     box-sizing: border-box;
     margin: 20px auto;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }

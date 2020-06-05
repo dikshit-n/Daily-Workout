@@ -1,11 +1,15 @@
 .loaderContainer {
   display: grid;
   place-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .loader.multiRipple {
   width: 3.6rem;
   height: 3.6rem;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .loader.multiRipple div {
   position: absolute;
@@ -14,6 +18,8 @@
   border-radius: 50%;
   border: 0.3rem solid rebeccapurple;
   animation: 1.5s ripple infinite;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .loader.multiRipple div:nth-child(2) {
   animation-delay: 0.5s;

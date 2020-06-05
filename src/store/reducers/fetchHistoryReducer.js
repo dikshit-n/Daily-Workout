@@ -39,6 +39,7 @@ const fetchHistoryReducer = (state = initialState, action)  => {
             return {
                 ...state,
                 loading: true,
+                history: []
             }
         case(actionTypes.FETCH_HISTORY_SUCCESS):
             return {
@@ -52,6 +53,7 @@ const fetchHistoryReducer = (state = initialState, action)  => {
                 ...state,
                 loading: false,
                 error: action.error,
+                history: []
             }
         default:
             return state

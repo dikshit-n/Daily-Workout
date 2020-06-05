@@ -4,12 +4,13 @@ import classes from './WorkoutType.css'
 import DeleteIcon from '../../../UI/DeleteIcon/deleteIcon'
 import SmallSpinner from '../../../UI/Spinner/SmallSpinner/smallSpinner'
 import Fade from '../../../../hoc/AnimationDelay/animationDelay'
+import SmallSendButton from '../../../UI/Button/smallSendButton/smallSendButton'
 
 
 
 const WorkoutType = props => {
 
-    let button = <button type="submit" className={classes.Submit}></button>
+    let button = <SmallSendButton />
 
     let del = <div className={classes.container} > <DeleteIcon onClick={() => props.onDelete(props.id)} /> </div>
 
@@ -30,8 +31,9 @@ const WorkoutType = props => {
             <div className={classes.WorkoutType} >
 
                 <div className={classes.name} >
-
-                    {props.workoutType} 
+                    <div>
+                        {props.workoutType} 
+                    </div>
 
                     {del}
 

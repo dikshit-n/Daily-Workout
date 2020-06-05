@@ -7,17 +7,17 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     opacity: 0.5;
-    transition: all 1s ease-out;
+    transition: all 0.75s ease-out;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .BackdropOpen{
     /* display: block; */
     opacity: 0.5;
-    transform: translateY(0);
 }
 
 .BackdropClose{
     /* display: none; */
     opacity: 0;
-    transform: translateY(-100vh);
 }

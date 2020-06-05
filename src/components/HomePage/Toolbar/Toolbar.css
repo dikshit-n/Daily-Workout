@@ -6,7 +6,9 @@
     background-color: black;
     height: 10vh;
     width: 100%;
-    color: blanchedalmond;
+    color: rgb(184, 181, 177);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 h4{
@@ -20,4 +22,10 @@ h4{
     display: none;
     align-items: center;
     justify-content: center;
+}
+
+h3{
+    display: inline-block;
+    margin: 3vh auto;
+    /* left: 5px; */
 }

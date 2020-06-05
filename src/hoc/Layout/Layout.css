@@ -1,8 +1,12 @@
 .Content {
-    margin-top: 57px;
+    margin-top: calc( 10vh + 12.4px ) ;
+    padding: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100%;
     height: 90vh;
+    box-sizing: border-box;
     color: blanchedalmond;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }

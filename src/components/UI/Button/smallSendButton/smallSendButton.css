@@ -1,11 +1,12 @@
-.smallSpinner{
-    display: inline-block;
-    width: 20px;
-    height: 20px;
+.Submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     outline: none;
     border: none;
-    color: white;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
