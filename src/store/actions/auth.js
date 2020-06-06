@@ -20,8 +20,8 @@ export const auth = (data, signup) => {
             return response.data
         })
         .catch(err => {
-            console.log(err.response.data.error)
-            dispatch(authFailure(err));
+            console.log(err.content)
+            dispatch(authFailure("Wrong Email Id or Password"));
             // console.log(err['message'])
         });
     }

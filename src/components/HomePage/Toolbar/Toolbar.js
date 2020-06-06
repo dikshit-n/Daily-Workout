@@ -74,4 +74,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(Toolbar, axios))) 
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Toolbar, axios))

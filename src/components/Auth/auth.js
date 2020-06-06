@@ -53,6 +53,7 @@ const Auth = props => {
     return (
         <form className={classes.AuthForm} onSubmit={event => submit(event)}>
             {redirect}
+            <p>{props.errorMessage}</p>
             {form}
         </form>
     )
@@ -61,7 +62,8 @@ const Auth = props => {
 const mapStateToProps = state => {
     return {
         loading: state.authReducer.loading,
-        isAuth: state.authReducer.token !== null
+        isAuth: state.authReducer.token !== null,
+        errorMessage: state.authReducer.error
     }
 }
 
