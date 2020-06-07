@@ -29,8 +29,6 @@
     background: linear-gradient(#7a7a78, #3d3d3d);
     border: none;
     outline: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .name{

@@ -160,6 +160,7 @@ const WorkoutTypes = React.memo(props => {
             return el
 
         })
+        newState = newState.filter(el => el.id !== deleteWorkoutTypeId)
     }
 
     // Total Output
@@ -167,7 +168,7 @@ const WorkoutTypes = React.memo(props => {
 
     if(!props.loading ){
 
-        if(state.length === 0)
+        if(state.length === 0 || newState.length === 0)
 
         output=<p>Start Your Workout</p>
 
@@ -204,7 +205,7 @@ const WorkoutTypes = React.memo(props => {
 
         <div className={classes.WorkoutTypes} >
 
-            {output}
+            {state.length === 0 || newState.length === 0 ? <p>Start Your Workout</p> : output}
 
         </div>
     )

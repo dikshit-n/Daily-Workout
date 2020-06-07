@@ -1,4 +1,5 @@
 import React from 'react';
+import SwipeViews from 'react-swipeable-views';
 
 import Aux from '../Auxillary/Auxillary';
 import classes from './Layout.css';
